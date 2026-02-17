@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chronotope — Living Heritage in Four Dimensions</title>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,600;1,6..72,300;1,6..72,400&family=JetBrains+Mono:wght@300;400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  body {
+    font-family: 'Newsreader', 'Georgia', serif;
+    background: #0a0a0f;
+    color: #e8e4dc;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 92vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 4rem clamp(2rem, 5vw, 4rem);
+    overflow: hidden;
+  }
+
+  .hero-grain {
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 1;
+  }
+
+  .hero-gradient {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 80%, rgba(78,205,196,.08) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 40% at 80% 20%, rgba(255,107,107,.06) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 50% at 50% 50%, rgba(255,217,61,.04) 0%, transparent 60%);
+    z-index: 0;
+  }
+
+  .hero > * { position: relative; z-index: 2; }
+
+  .hero-sup {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .7rem;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    color: #7a7568;
+    margin-bottom: .5rem;
+    opacity: 0; transform: translateY(20px);
+    animation: fadeUp .9s .2s cubic-bezier(.22,1,.36,1) forwards;
+  }
+
+  .hero h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(3rem,8vw,6.5rem);
+    font-weight: 400;
+    line-height: .95;
+    letter-spacing: -.03em;
+    color: #f0ece4;
+    opacity: 0; transform: translateY(30px);
+    animation: fadeUp 1.2s .35s cubic-bezier(.22,1,.36,1) forwards;
+  }
+
+  .hero h1 em { font-style: italic; color: #4ecdc4; }
+
+  .hero-desc {
+    font-size: 1.15rem; line-height: 1.7; color: #b0a99a;
+    max-width: 640px; margin-top: 1.5rem; font-weight: 300;
+    opacity: 0; transform: translateY(20px);
+    animation: fadeUp 1.2s .55s cubic-bezier(.22,1,.36,1) forwards;
+  }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── SHARED ── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #2a2a30, transparent);
+    margin: 0 clamp(2rem,5vw,4rem);
+  }
+
+  .section {
+    padding: 5rem clamp(2rem,5vw,4rem);
+    position: relative;
+  }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .65rem; letter-spacing: .3em;
+    text-transform: uppercase; color: #5a5549;
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(2rem,4vw,3rem);
+    font-weight: 400; color: #f0ece4;
+    margin-bottom: 2rem; line-height: 1.1;
+  }
+
+  .section-body {
+    font-size: 1.05rem; line-height: 1.75; color: #8a8378;
+    max-width: 680px; font-weight: 300; margin-bottom: 3rem;
+  }
+
+  .section-body em { color: #4ecdc4; font-style: italic; }
+  .section-body strong { color: #f0ece4; font-weight: 400; }
+
+  /* ── DIAGRAM ── */
+  .diagram {
+    background: #0c0c12;
+    border: 1px solid #2a2a30;
+    border-radius: 2px;
+    padding: 2.5rem 1.5rem;
+    overflow-x: auto;
+  }
+
+  .diagram-flow {
+    display: flex; align-items: stretch;
+    min-width: 820px;
+  }
+
+  .diagram-node {
+    flex: 1; padding: 1.5rem; text-align: center;
+    position: relative;
+    border-right: 1px solid rgba(255,255,255,.04);
+  }
+  .diagram-node:last-child { border-right: none; }
+
+  .diagram-icon { font-size: 1.8rem; margin-bottom: .75rem; }
+
+  .diagram-lbl {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .6rem; letter-spacing: .2em;
+    text-transform: uppercase; color: #5a5549;
+    margin-bottom: .5rem;
+  }
+
+  .diagram-name {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.1rem; color: #f0ece4;
+    margin-bottom: .5rem;
+  }
+
+  .diagram-desc {
+    font-size: .78rem; color: #6a6560;
+    line-height: 1.5; font-weight: 300;
+  }
+
+  .diagram-arrow {
+    position: absolute; right: -8px; top: 50%;
+    transform: translateY(-50%);
+    color: #3a3a40; font-size: 1rem; z-index: 2;
+  }
+
+  /* ── LAYERS ── */
+  .layers-grid {
+    display: flex; flex-direction: column; gap: 1px;
+    background: #1a1a1f;
+    border: 1px solid #2a2a30;
+    border-radius: 2px; overflow: hidden;
+  }
+
+  .layer-card {
+    padding: 2rem; cursor: pointer;
+    transition: all .4s ease;
+    position: relative; background: #0f0f14;
+  }
+  .layer-card:hover { background: rgba(255,255,255,.015); }
+
+  .layer-bar {
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 0; transition: width .35s ease;
+  }
+  .layer-card.active .layer-bar { width: 3px; }
+
+  .layer-header {
+    display: flex; align-items: center; gap: 1rem; margin-bottom: .25rem;
+  }
+
+  .layer-icon {
+    font-size: 1.5rem; width: 40px; height: 40px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%; flex-shrink: 0;
+  }
+
+  .layer-name {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.4rem; color: #f0ece4;
+  }
+
+  .layer-tech {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .65rem; letter-spacing: .15em;
+    text-transform: uppercase; opacity: .5;
+  }
+
+  .layer-detail {
+    max-height: 0; opacity: 0; overflow: hidden;
+    transition: max-height .6s cubic-bezier(.22,1,.36,1), opacity .4s ease;
+  }
+  .layer-card.active .layer-detail { max-height: 320px; opacity: 1; }
+
+  .layer-body {
+    font-size: .9rem; line-height: 1.65;
+    color: #8a8378; margin-top: .75rem; font-weight: 300;
+  }
+
+  .layer-meta {
+    display: flex; gap: 2rem; margin-top: 1rem;
+    padding-top: 1rem; border-top: 1px solid rgba(255,255,255,.06);
+  }
+
+  .layer-meta dt {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .65rem; color: #7a7568;
+  }
+
+  .layer-meta dd {
+    color: #b0a99a; margin-top: .25rem;
+    font-size: .85rem;
+  }
+
+  /* ── PHASES ── */
+  .phases-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1px; background: #1a1a1f;
+    border: 1px solid #2a2a30;
+    border-radius: 2px; overflow: hidden;
+  }
+
+  .phase-card {
+    padding: 2rem; cursor: pointer;
+    transition: all .4s ease;
+    background: #0f0f14;
+  }
+  .phase-card:hover { background: #14141a; }
+
+  .phase-num {
+    font-family: 'Instrument Serif', serif;
+    font-size: 3rem; color: rgba(255,255,255,.06); line-height: 1;
+    margin-bottom: .5rem;
+  }
+
+  .phase-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.5rem; color: #f0ece4; margin-bottom: .25rem;
+  }
+
+  .phase-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .6rem; letter-spacing: .2em;
+    text-transform: uppercase; color: #5a5549;
+    margin-bottom: 1rem;
+  }
+
+  .phase-desc {
+    font-size: .95rem; line-height: 1.65;
+    color: #8a8378; font-weight: 300;
+  }
+
+  .phase-expanded {
+    max-height: 0; opacity: 0; overflow: hidden;
+    transition: max-height .55s cubic-bezier(.22,1,.36,1), opacity .35s ease;
+  }
+  .phase-card.active .phase-expanded { max-height: 500px; opacity: 1; }
+
+  .phase-expanded-inner {
+    margin-top: 1.5rem; padding-top: 1.5rem;
+    border-top: 1px solid rgba(255,255,255,.06);
+  }
+
+  .phase-principle {
+    font-style: italic; font-size: 1rem;
+    color: #4ecdc4; margin-bottom: 1.25rem;
+    line-height: 1.5; opacity: .8;
+  }
+
+  .phase-detail {
+    font-size: .85rem; color: #7a7568;
+    padding: .4rem 0 .4rem 1rem;
+    border-left: 1px solid rgba(255,255,255,.06);
+    margin-bottom: .5rem; line-height: 1.5;
+  }
+
+  /* ── TECH GRID ── */
+  .tech-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .tech-card {
+    border: 1px solid #2a2a30; border-radius: 2px;
+    padding: 2rem; background: #0f0f14;
+    transition: all .3s ease;
+  }
+  .tech-card:hover { border-color: #3a3a40; background: #12121a; }
+
+  .tech-card h3 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .9rem; color: #f0ece4; letter-spacing: .05em;
+    font-weight: 400;
+  }
+
+  .tech-card .role {
+    font-style: italic; font-size: .85rem;
+    color: #5a5549; margin: .25rem 0 1rem;
+  }
+
+  .tech-card .lbl {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .55rem; letter-spacing: .2em;
+    text-transform: uppercase; color: #4a4540;
+    margin-bottom: .25rem;
+  }
+
+  .tech-card .txt {
+    font-size: .85rem; line-height: 1.6;
+    color: #8a8378; margin-bottom: .75rem; font-weight: 300;
+  }
+
+  .tech-card .cite {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .6rem; color: #4a4540;
+    margin-top: 1rem; padding-top: .75rem;
+    border-top: 1px solid rgba(255,255,255,.04);
+  }
+
+  /* ── ADVANTAGE GRID ── */
+  .adv-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem; margin-top: 1rem;
+  }
+
+  .adv-card {
+    padding: 1.5rem; border: 1px solid #2a2a30;
+    border-radius: 2px; background: #0f0f14;
+  }
+
+  .adv-card h4 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.1rem; color: #f0ece4;
+    margin-bottom: .75rem; font-weight: 400;
+  }
+
+  .adv-card p {
+    font-size: .85rem; line-height: 1.65;
+    color: #7a7568; font-weight: 300;
+  }
+
+  /* ── PHILOSOPHY ── */
+  .philosophy {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 3rem; margin-top: 1rem; max-width: 900px;
+  }
+
+  @media (max-width: 700px) { .philosophy { grid-template-columns: 1fr; } }
+
+  .phil-heading {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .6rem; letter-spacing: .2em;
+    text-transform: uppercase; margin-bottom: .75rem;
+  }
+
+  .phil-item {
+    font-size: .85rem; line-height: 1.6;
+    font-weight: 300; margin-bottom: .75rem;
+    padding-left: 1rem;
+  }
+
+  .phil-resist .phil-heading { color: #ff6b6b; }
+  .phil-resist .phil-item { color: #7a7568; border-left: 1px solid rgba(255,107,107,.3); }
+
+  .phil-enable .phil-heading { color: #4ecdc4; }
+  .phil-enable .phil-item { color: #8a8378; border-left: 1px solid rgba(78,205,196,.3); }
+
+  /* ── CLOSING ── */
+  .closing {
+    padding: 6rem clamp(2rem,5vw,4rem);
+    text-align: center;
+  }
+
+  .closing-sup {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .6rem; letter-spacing: .3em;
+    text-transform: uppercase; color: #3a3530;
+    margin-bottom: 3rem;
+  }
+
+  .closing-quote {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(1.5rem,3vw,2.2rem);
+    font-style: italic; color: #b0a99a;
+    max-width: 700px; margin: 0 auto 2rem; line-height: 1.4;
+  }
+
+  .closing-attr {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .65rem; letter-spacing: .2em; color: #4a4540;
+  }
+
+  .closing-tech {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .55rem; color: #2a2520;
+    margin-top: 2rem; letter-spacing: .1em;
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ HERO ═══════════ -->
+<header class="hero">
+  <div class="hero-grain"></div>
+  <div class="hero-gradient"></div>
+  <p class="hero-sup">A Nimbo Plugin Concept for Community-Led Heritage Conservation</p>
+  <h1><em>Chronotope</em><br>Living Heritage<br>in Four Dimensions</h1>
+  <p class="hero-desc">Combining satellite time-series, feedforward 4D reconstruction, neural radiance fields, and Gaussian splatting into a single navigable temporal depth—so communities can see, argue for, and protect the living patterns of their places.</p>
+</header>
+
+<div class="divider"></div>
+
+<!-- ═══════════ CORE INSIGHT ═══════════ -->
+<section class="section">
+  <p class="section-label">Core Insight</p>
+  <h2 class="section-title">Multi-Scale Temporal Depth</h2>
+  <div class="section-body">
+    <p>No single technology captures what heritage <em>is</em>. Nimbo sees the landscape changing from orbit, month by month. D4RT reconstructs the living street from a grandmother's phone video. NeRF interpolates between the moments no one recorded. And 3DGS makes all of it navigable on any device, by anyone.</p>
+    <br>
+    <p>Combined, they produce something none can produce alone: a <strong>continuous, multi-scale, community-owned temporal record of place</strong>—from the orbital to the ornamental, from decades to instants.</p>
+  </div>
+
+  <div class="diagram">
+    <div class="diagram-flow">
+      <div class="diagram-node">
+        <div class="diagram-icon">📱</div>
+        <div class="diagram-lbl">Input</div>
+        <div class="diagram-name">Community Video</div>
+        <div class="diagram-desc">Smartphone footage captured by residents during daily life, ceremonies, seasonal events</div>
+        <span class="diagram-arrow">→</span>
+      </div>
+      <div class="diagram-node">
+        <div class="diagram-icon">⚡</div>
+        <div class="diagram-lbl">Reconstruct</div>
+        <div class="diagram-name">D4RT Engine</div>
+        <div class="diagram-desc">Feedforward 4D reconstruction. Encoder → Global Scene Representation → Independent point queries at 200+ FPS</div>
+        <span class="diagram-arrow">→</span>
+      </div>
+      <div class="diagram-node">
+        <div class="diagram-icon">✦</div>
+        <div class="diagram-lbl">Render</div>
+        <div class="diagram-name">NeRF + 3DGS</div>
+        <div class="diagram-desc">NeRF interpolates temporal gaps. 3DGS accumulates Gaussians for real-time web rendering on consumer hardware</div>
+        <span class="diagram-arrow">→</span>
+      </div>
+      <div class="diagram-node">
+        <div class="diagram-icon">🛰️</div>
+        <div class="diagram-lbl">Contextualize</div>
+        <div class="diagram-name">Nimbo Canvas</div>
+        <div class="diagram-desc">Geo-registered into monthly satellite basemaps. NDVI, radar, and infrared layers reveal landscape-scale change</div>
+        <span class="diagram-arrow">→</span>
+      </div>
+      <div class="diagram-node">
+        <div class="diagram-icon">🏛️</div>
+        <div class="diagram-lbl">Outcome</div>
+        <div class="diagram-name">Heritage Archive</div>
+        <div class="diagram-desc">Navigable 4D model. Community-owned. Exportable as evidence for planning, grants, UNESCO documentation</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════ THREE LAYERS ═══════════ -->
+<section class="section">
+  <p class="section-label">Architecture</p>
+  <h2 class="section-title">Three Layers of Memory</h2>
+  <p style="font-size:.95rem;line-height:1.7;color:#7a7568;max-width:600px;font-weight:300;margin-bottom:2.5rem;">Chronotope operates across three nested spatial-temporal scales, each powered by different technology, unified through a shared coordinate system.</p>
+
+  <div class="layers-grid">
+    <!-- Orbital -->
+    <div class="layer-card" onclick="toggleLayer(this)" data-bg="#1a3a5c15">
+      <div class="layer-bar" style="background:#4ecdc4;"></div>
+      <div class="layer-header">
+        <div class="layer-icon" style="background:rgba(78,205,196,.08);border:1px solid rgba(78,205,196,.2);">🛰️</div>
+        <div>
+          <div class="layer-name">Orbital Memory</div>
+          <div class="layer-tech" style="color:#4ecdc4;">Nimbo Time Machine</div>
+        </div>
+      </div>
+      <div class="layer-detail">
+        <p class="layer-body">Monthly satellite basemaps (2019–present) provide the macro-temporal canvas. Cloud-free Sentinel imagery reveals land-use change, encroachment patterns, and environmental drift at 2.5m resolution.</p>
+        <div class="layer-meta">
+          <dl><dt>Spatial Scale</dt><dd>Landscape / District</dd></dl>
+          <dl><dt>Temporal Resolution</dt><dd>Monthly cadence, 6+ years deep</dd></dl>
+        </div>
+      </div>
+    </div>
+    <!-- Street -->
+    <div class="layer-card" onclick="toggleLayer(this)" data-bg="#2d1b4e15">
+      <div class="layer-bar" style="background:#ff6b6b;"></div>
+      <div class="layer-header">
+        <div class="layer-icon" style="background:rgba(255,107,107,.08);border:1px solid rgba(255,107,107,.2);">📱</div>
+        <div>
+          <div class="layer-name">Street Memory</div>
+          <div class="layer-tech" style="color:#ff6b6b;">D4RT Reconstruction</div>
+        </div>
+      </div>
+      <div class="layer-detail">
+        <p class="layer-body">Community-captured phone video is processed through D4RT's feedforward encoder-decoder, producing full 4D point clouds with temporal correspondence in seconds. Dynamic elements—market crowds, seasonal rituals, water flow—are preserved as living geometry.</p>
+        <div class="layer-meta">
+          <dl><dt>Spatial Scale</dt><dd>Building / Block / Plaza</dd></dl>
+          <dl><dt>Temporal Resolution</dt><dd>Per-capture, sub-second dynamics</dd></dl>
+        </div>
+      </div>
+    </div>
+    <!-- Material -->
+    <div class="layer-card" onclick="toggleLayer(this)" data-bg="#3d1f0a15">
+      <div class="layer-bar" style="background:#ffd93d;"></div>
+      <div class="layer-header">
+        <div class="layer-icon" style="background:rgba(255,217,61,.08);border:1px solid rgba(255,217,61,.2);">✦</div>
+        <div>
+          <div class="layer-name">Material Memory</div>
+          <div class="layer-tech" style="color:#ffd93d;">NeRF + 3D Gaussian Splatting</div>
+        </div>
+      </div>
+      <div class="layer-detail">
+        <p class="layer-body">NeRF provides continuous volumetric interpolation between captured states—filling temporal gaps with plausible geometry. 3DGS renders the accumulated heritage model in real-time on consumer devices, making the full 4D archive navigable by any stakeholder.</p>
+        <div class="layer-meta">
+          <dl><dt>Spatial Scale</dt><dd>Surface / Detail / Ornament</dd></dl>
+          <dl><dt>Temporal Resolution</dt><dd>Continuous interpolation across all captures</dd></dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════ FOUR PHASES ═══════════ -->
+<section class="section">
+  <p class="section-label">Workflow</p>
+  <h2 class="section-title">Four Phases of Heritage Practice</h2>
+
+  <div class="phases-grid">
+    <div class="phase-card" onclick="togglePhase(this)">
+      <div class="phase-num">01</div>
+      <div class="phase-title">Capture</div>
+      <div class="phase-sub">Community as Sensor Network</div>
+      <p class="phase-desc">Residents walk their neighborhoods filming on smartphones. No expertise required—D4RT's feedforward architecture handles arbitrary camera motion, changing lighting, and dynamic scenes. Each walk deposits a spatiotemporal core sample into the collective archive.</p>
+      <div class="phase-expanded"><div class="phase-expanded-inner">
+        <p class="phase-principle">"Sovereignty begins with the right to define what is worth remembering."</p>
+        <p class="phase-detail">Phone video → D4RT encoder → Global Scene Representation in &lt;2 seconds</p>
+        <p class="phase-detail">Automatic geo-registration into Nimbo's coordinate system via GPS metadata</p>
+        <p class="phase-detail">Dynamic elements (people, vehicles, ceremonies) tracked as 4D correspondences</p>
+        <p class="phase-detail">No cloud processing required—runs on-device or at edge</p>
+      </div></div>
+    </div>
+    <div class="phase-card" onclick="togglePhase(this)">
+      <div class="phase-num">02</div>
+      <div class="phase-title">Accumulate</div>
+      <div class="phase-sub">Living Palimpsest</div>
+      <p class="phase-desc">Each capture is stitched into a growing 4D model of the heritage site. NeRF interpolates between temporal states while 3DGS maintains a real-time-renderable representation. The result is a navigable temporal depth—not a snapshot, but a geological record of place.</p>
+      <div class="phase-expanded"><div class="phase-expanded-inner">
+        <p class="phase-principle">"Heritage is not a frozen artifact. It is the accumulated pattern of living."</p>
+        <p class="phase-detail">D4RT point clouds registered into shared world coordinates via Umeyama alignment</p>
+        <p class="phase-detail">3DGS accumulates Gaussian primitives across captures for real-time rendering</p>
+        <p class="phase-detail">NeRF provides continuous view synthesis between temporal samples</p>
+        <p class="phase-detail">Nimbo satellite time-series anchors the macro context (land use, vegetation, hydrology)</p>
+      </div></div>
+    </div>
+    <div class="phase-card" onclick="togglePhase(this)">
+      <div class="phase-num">03</div>
+      <div class="phase-title">Narrate</div>
+      <div class="phase-sub">Temporal Navigation as Argument</div>
+      <p class="phase-desc">Community stakeholders navigate the 4D archive to construct spatial narratives for planning hearings, grant applications, and cultural documentation. The plugin generates temporal transects—fly-throughs that reveal how a place has lived, breathed, and changed.</p>
+      <div class="phase-expanded"><div class="phase-expanded-inner">
+        <p class="phase-principle">"The most powerful argument against displacement is the visible depth of belonging."</p>
+        <p class="phase-detail">Temporal scrubber moves between satellite-scale years and street-scale moments</p>
+        <p class="phase-detail">Split-view compares any two temporal states at any spatial scale</p>
+        <p class="phase-detail">Community annotations pin oral histories, photographs, and stories to 4D coordinates</p>
+        <p class="phase-detail">Export as interactive web experience, video, or QGIS-compatible layers</p>
+      </div></div>
+    </div>
+    <div class="phase-card" onclick="togglePhase(this)">
+      <div class="phase-num">04</div>
+      <div class="phase-title">Advocate</div>
+      <div class="phase-sub">Evidence of Living Heritage</div>
+      <p class="phase-desc">The accumulated 4D model becomes an evidentiary instrument. Change detection algorithms automatically flag encroachment, deterioration, or unauthorized modification. Community-defined heritage boundaries gain empirical backing from multi-scale temporal data.</p>
+      <div class="phase-expanded"><div class="phase-expanded-inner">
+        <p class="phase-principle">"When communities own the record, they own the argument."</p>
+        <p class="phase-detail">Automatic change detection across orbital (Nimbo NDVI/radar) and street (D4RT) scales</p>
+        <p class="phase-detail">Heritage impact assessment overlays proposed development onto living 4D model</p>
+        <p class="phase-detail">Exportable evidence packages for UNESCO, municipal planning, legal proceedings</p>
+        <p class="phase-detail">Open data standard ensures community retains sovereignty over collected data</p>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════ TECH STACK ═══════════ -->
+<section class="section">
+  <p class="section-label">Technology Integration</p>
+  <h2 class="section-title">Why These Four, Together</h2>
+  <p style="font-size:.95rem;line-height:1.7;color:#7a7568;max-width:600px;font-weight:300;margin-bottom:2.5rem;">Each technology solves a problem the others cannot. Their combination produces capabilities none possess independently.</p>
+
+  <div class="tech-grid">
+    <div class="tech-card">
+      <h3>D4RT</h3>
+      <p class="role">4D Reconstruction Engine</p>
+      <p class="lbl">What It Does</p>
+      <p class="txt">Feedforward transformer encodes video into Global Scene Representation. Lightweight cross-attention decoder independently queries 3D position of any point in space and time.</p>
+      <p class="lbl">Why It's Essential</p>
+      <p class="txt">200+ FPS inference. Handles dynamic scenes. Single unified decoder for depth, point clouds, tracking, and camera parameters. No iterative optimization needed.</p>
+      <p class="cite">Zhang et al., Google DeepMind, 2025</p>
+    </div>
+    <div class="tech-card">
+      <h3>3D Gaussian Splatting</h3>
+      <p class="role">Real-Time Rendering Layer</p>
+      <p class="lbl">What It Does</p>
+      <p class="txt">Explicit point-based scene representation using anisotropic Gaussians with learned opacity, color, and covariance. Rasterization-based rendering at 100+ FPS.</p>
+      <p class="lbl">Why It's Essential</p>
+      <p class="txt">Web-deployable via WebGL/WebGPU. Consumer hardware compatible. Editable—communities can annotate and modify. Compact storage for archival.</p>
+      <p class="cite">Kerbl et al., 2023; heritage applications at CIPA 2025</p>
+    </div>
+    <div class="tech-card">
+      <h3>Neural Radiance Fields</h3>
+      <p class="role">Temporal Interpolation Fabric</p>
+      <p class="lbl">What It Does</p>
+      <p class="txt">Continuous volumetric representation that maps 5D coordinates (x,y,z,θ,φ) to color and density. Extended here to 6D with temporal dimension.</p>
+      <p class="lbl">Why It's Essential</p>
+      <p class="txt">Fills gaps between discrete captures with plausible geometry. Enables smooth temporal navigation. Provides the continuous spatial representation that regularizes 3DGS artifacts.</p>
+      <p class="cite">Mildenhall et al., 2020; Fang et al., ICCV 2025</p>
+    </div>
+    <div class="tech-card">
+      <h3>Nimbo Earth Online</h3>
+      <p class="role">Orbital-Scale Temporal Canvas</p>
+      <p class="lbl">What It Does</p>
+      <p class="txt">Cloud-free monthly satellite basemaps from Sentinel 1/2 via Copernicus. 2.5m resolution with super-resolution. NDVI, infrared, radar layers. API via TMS/WMTS.</p>
+      <p class="lbl">Why It's Essential</p>
+      <p class="txt">Only platform providing monthly global updates. Already has QGIS plugin architecture. European sovereignty (GAFA-free). Built for change detection.</p>
+      <p class="cite">Kermap, Rennes, France</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════ D4RT ADVANTAGE ═══════════ -->
+<section class="section">
+  <p class="section-label">The D4RT Advantage</p>
+  <h2 class="section-title">Why Feedforward 4D Changes Everything</h2>
+  <div class="adv-grid">
+    <div class="adv-card">
+      <h4>No Optimization Loop</h4>
+      <p>Previous approaches (COLMAP, test-time optimization) require minutes to hours per scene. D4RT's feedforward encoder processes video in a single pass. A community member's 30-second walking video becomes a 4D point cloud before they put their phone away.</p>
+    </div>
+    <div class="adv-card">
+      <h4>Dynamic Scene Understanding</h4>
+      <p>Heritage isn't static. Markets pulse, water flows, ceremonies unfold. Unlike MegaSaM or π³ which fail on dynamic content, D4RT's unified decoder tracks all pixels through time—the only method that captures the living dynamics of place.</p>
+    </div>
+    <div class="adv-card">
+      <h4>Unified Query Interface</h4>
+      <p>One decoder for depth, point clouds, camera parameters, and temporal correspondence. No ensemble of task-specific models. The query (u,v,t_src,t_tgt,t_cam) can probe any point in space and time independently—enabling the flexible multi-scale architecture Chronotope requires.</p>
+    </div>
+    <div class="adv-card">
+      <h4>Trivial Parallelism</h4>
+      <p>Each D4RT query is decoded independently—no inter-query dependencies. This means the occupancy-grid algorithm can efficiently track all pixels in a video with 5–15× adaptive speedup, making dense 4D reconstruction feasible on edge devices.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════ PHILOSOPHY ═══════════ -->
+<section class="section">
+  <p class="section-label">Design Philosophy</p>
+  <h2 class="section-title">Technology in Service of Sovereignty</h2>
+  <div class="philosophy">
+    <div class="phil-resist">
+      <p class="phil-heading">What Chronotope Resists</p>
+      <p class="phil-item">Extractive documentation by outside experts who parachute in and leave with the data</p>
+      <p class="phil-item">Static heritage inventories that freeze living places into museum pieces</p>
+      <p class="phil-item">Top-down planning tools that privilege the developer's model over community knowledge</p>
+      <p class="phil-item">Technological gatekeeping that makes 4D reconstruction inaccessible to non-specialists</p>
+    </div>
+    <div class="phil-enable">
+      <p class="phil-heading">What Chronotope Enables</p>
+      <p class="phil-item">Community-captured, community-owned 4D archives that stay with the people who made them</p>
+      <p class="phil-item">Living heritage models that breathe with seasonal rhythms, daily rituals, and generational change</p>
+      <p class="phil-item">Evidentiary instruments that give empirical weight to embodied knowledge of place</p>
+      <p class="phil-item">Phone-to-4D pipelines that put the full power of D4RT + NeRF + 3DGS in any resident's hands</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════ CLOSING ═══════════ -->
+<footer class="closing">
+  <p class="closing-sup">The Proposition</p>
+  <p class="closing-quote">The most radical act of heritage conservation is not to freeze a place in amber, but to give the people who live in it the tools to reveal its temporal depth—and the evidence to defend it.</p>
+  <p class="closing-attr">Chronotope — A Nimbo Plugin Concept</p>
+  <p class="closing-tech">D4RT (Zhang et al., Google DeepMind) · 3DGS (Kerbl et al.) · NeRF (Mildenhall et al.) · Nimbo (Kermap, Rennes)</p>
+</footer>
+
+<script>
+function toggleLayer(card) {
+  const wasActive = card.classList.contains('active');
+  document.querySelectorAll('.layer-card').forEach(c => {
+    c.classList.remove('active');
+    c.style.background = '#0f0f14';
+  });
+  if (!wasActive) {
+    card.classList.add('active');
+    card.style.background = card.dataset.bg || 'rgba(255,255,255,.02)';
+  }
+}
+
+function togglePhase(card) {
+  const wasActive = card.classList.contains('active');
+  document.querySelectorAll('.phase-card').forEach(c => c.classList.remove('active'));
+  if (!wasActive) card.classList.add('active');
+}
+</script>
+</body>
+</html>
